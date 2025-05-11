@@ -131,7 +131,7 @@
 <body>
 
   <div class="container">
-    <div class="left-text">DÜNYADAKİ KIZ MİKTARI: 4,093,903,832</div>
+    <div class="left-text">DÜNYADAKI KIZ MIKTARI: 4,093,903,832</div>
     <button class="right-button" id="girlBtn">1 KIZ</button>
   </div>
 
@@ -144,8 +144,8 @@
     // Mouse'u hareket ettir
     function moveMouse() {
       mouse.style.transition = "left 2s ease";
-      mouse.style.top = "200px";
-      mouse.style.left = `${window.innerWidth - 120}px`; // Butonun sağ kısmına yerleştiriyoruz
+      mouse.style.top = "50px";
+      mouse.style.left = `${window.innerWidth - 100}px`; // Butonun sağ kısmına yerleştiriyoruz
     }
 
     // Butonun tıklama animasyonu
@@ -157,16 +157,17 @@
       }, 300);
     }
 
+      // Tıklama olayı
+    function clicked() {
+      button.innerText = "KARICIM 💍";
+    });
+
     // Sahte mouse hareketini başlat
     setTimeout(() => {
       moveMouse();
       setTimeout(clickButton, 2000); // Mouse hareketi bittikten 2 saniye sonra tıklama animasyonu
+      clicked()
     }, 1000);
-
-    // Tıklama olayı
-    button.addEventListener("click", () => {
-      button.innerText = "KARICIM 💍";
-    });
 
     // Kalp partikülleri sürekli
     function createHeart() {
