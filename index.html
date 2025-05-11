@@ -34,9 +34,13 @@
       color: white;
       border: none;
       border-radius: 16px;
-      cursor: default;
-      transition: background 0.3s;
-      z-index: 1;
+      cursor: pointer;
+      z-index: 2;
+      transition: transform 0.2s;
+    }
+
+    .girl-button:active {
+      transform: scale(0.95);
     }
 
     .mouse {
@@ -68,10 +72,46 @@
       100% { top: 190px; left: calc(100% - 120px); }
     }
 
-    @keyframes clickEffect {
-      0% { transform: scale(1); }
-      50% { transform: scale(0.9); }
-      100% { transform: scale(1); }
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: pink;
+      position: absolute;
+      transform: rotate(45deg);
+      animation: floatUp 4s linear infinite;
+      opacity: 0.7;
+      border-radius: 4px;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 20px;
+      height: 20px;
+      background: pink;
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-800px) rotate(45deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -89,16 +129,29 @@
     const mouse = document.getElementById("fakeMouse");
     const button = document.getElementById("girlBtn");
 
-    // 1 saniye sonra mouse hareketi başlasın
+    // Sahte mouse hareketi
     setTimeout(() => {
       mouse.style.animation = "moveMouse 2s ease forwards";
-
-      // 2.1 saniyede "tıklama" yap
-      setTimeout(() => {
-        button.innerText = "KARICIM 💍";
-        button.style.animation = "clickEffect 0.4s ease";
-      }, 2100);
     }, 1000);
+
+    // Tıklama olayı
+    button.addEventListener("click", () => {
+      button.innerText = "KARICIM 💍";
+    });
+
+    // Kalp partikülleri sürekli
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.bottom = "-20px";
+      heart.style.background = Math.random() > 0.5 ? "#ff69b4" : "#ff85a2";
+      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 200);
   </script>
 
 </body>
