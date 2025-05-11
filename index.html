@@ -13,11 +13,13 @@
     }
     body {
       background: linear-gradient(135deg, #f8f9fa, #e6d6d1);
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
       color: #333;
     }
@@ -31,6 +33,7 @@
       border-radius: 30px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       transition: transform 0.2s;
+      z-index: 10;
     }
     .heart:hover {
       transform: scale(1.05) rotate(-45deg);
@@ -52,9 +55,14 @@
       left: 75px;
       top: 0;
     }
-    #prompt, #message {
-      display: none;
+    #prompt {
       margin-top: 40px;
+      z-index: 10;
+    }
+    #message {
+      display: none;
+      margin-top: 30px;
+      z-index: 10;
     }
     .btn {
       position: relative;
@@ -72,31 +80,6 @@
     .btn:active {
       transform: scale(0.97);
     }
-    .btn::after {
-      content: "";
-      position: absolute;
-      background: rgba(255,255,255,0.5);
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-    }
-    .btn:focus:not(:active)::after {
-      animation: none;
-    }
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-    .btn:active::after {
-      width: 100px;
-      height: 100px;
-      top: 50%;
-      left: 50%;
-      margin-top: -50px;
-      margin-left: -50px;
-    }
     h1 {
       font-size: 32px;
       color: #d63384;
@@ -106,40 +89,67 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    #background-image {
-      width: 80%;
-      max-width: 600px;
-      border-radius: 15px;
-      margin-top: 20px;
-      opacity: 0.7;
+
+    /* Kalp parçacıkları */
+    .floating-heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff6b81;
+      transform: rotate(-45deg);
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.6;
     }
-    audio {
-      display: none;
+    .floating-heart::before,
+    .floating-heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff6b81;
+      border-radius: 50%;
+    }
+    .floating-heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .floating-heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(1) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.5) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
 
-<!-- Gizli piyano müziği -->
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-  Your browser does not support the audio element.
 </audio>
 
-<!-- Kalp tıklama alanı -->
 <div class="heart" onclick="showPrompt()"></div>
 
-<!-- Giriş isteği -->
 <div id="prompt">
   <p style="font-size: 20px; margin-bottom: 10px;">Girmek istiyor musunuz?</p>
   <button class="btn" onclick="showMessage()">Evet</button>
   <button class="btn" onclick="sayNo()">Hayır</button>
 </div>
 
-<!-- Mesaj -->
 <div id="message">
   <h1>ASLIM, SENİ ÇOK SEVİYORUM 💖</h1>
-  <img id="background-image" src="https://via.placeholder.com/600x400/ddd/fff?text=Birlikte+geçirdiğimiz+anlar" alt="Anı Fotoğrafı">
+  <button class="btn" onclick="showMessage()">Evet</button>
+  <button class="btn" onclick="sayNo()">Hayır</button>
 </div>
 
 <script>
@@ -153,6 +163,20 @@
   function sayNo() {
     alert(":( Olsun, ben seni yine de seviyorum.");
   }
+
+  // Kalpleri rastgele ekle
+  function createHearts() {
+    const colors = ["#ff6b81", "#ff99ac", "#ffb6c1"];
+    for (let i = 0; i < 25; i++) {
+      const heart = document.createElement("div");
+      heart.classList.add("floating-heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDelay = Math.random() * 5 + "s";
+      heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      document.body.appendChild(heart);
+    }
+  }
+  createHearts();
 </script>
 
 </body>
