@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Aslım 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: linear-gradient(135deg, #f8f9fa, #e6d6d1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #333;
+    }
+    .heart {
+      width: 150px;
+      height: 150px;
+      background: #ff6b81;
+      position: relative;
+      transform: rotate(-45deg);
+      cursor: pointer;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .heart:hover {
+      transform: scale(1.05) rotate(-45deg);
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 150px;
+      height: 150px;
+      background: #ff6b81;
+      position: absolute;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -75px;
+      left: 0;
+    }
+    .heart::after {
+      left: 75px;
+      top: 0;
+    }
+    #prompt, #message {
+      display: none;
+      margin-top: 40px;
+    }
+    .btn {
+      position: relative;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      margin: 10px;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+    .btn:active {
+      transform: scale(0.97);
+    }
+    .btn::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,0.5);
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ripple 0.6s linear;
+    }
+    .btn:focus:not(:active)::after {
+      animation: none;
+    }
+    @keyframes ripple {
+      to {
+        transform: scale(4);
+        opacity: 0;
+      }
+    }
+    .btn:active::after {
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -50px;
+    }
+    h1 {
+      font-size: 32px;
+      color: #d63384;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    #background-image {
+      width: 80%;
+      max-width: 600px;
+      border-radius: 15px;
+      margin-top: 20px;
+      opacity: 0.7;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Gizli piyano müziği -->
+<audio autoplay loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Kalp tıklama alanı -->
+<div class="heart" onclick="showPrompt()"></div>
+
+<!-- Giriş isteği -->
+<div id="prompt">
+  <p style="font-size: 20px; margin-bottom: 10px;">Girmek istiyor musunuz?</p>
+  <button class="btn" onclick="showMessage()">Evet</button>
+  <button class="btn" onclick="sayNo()">Hayır</button>
+</div>
+
+<!-- Mesaj -->
+<div id="message">
+  <h1>ASLIM, SENİ ÇOK SEVİYORUM 💖</h1>
+  <img id="background-image" src="https://via.placeholder.com/600x400/ddd/fff?text=Birlikte+geçirdiğimiz+anlar" alt="Anı Fotoğrafı">
+</div>
+
+<script>
+  function showPrompt() {
+    document.getElementById('prompt').style.display = 'block';
+  }
+  function showMessage() {
+    document.getElementById('message').style.display = 'block';
+    document.getElementById('prompt').style.display = 'none';
+  }
+  function sayNo() {
+    alert(":( Olsun, ben seni yine de seviyorum.");
+  }
+</script>
+
+</body>
+</html>
