@@ -2,189 +2,104 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Aslım 💖</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>Wenshert <3 Wimshert</title>
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      background: #fff0f5;
       font-family: 'Poppins', sans-serif;
-    }
-    body {
-      background: linear-gradient(135deg, #ffeef2, #f8d7da);
-      height: 100vh;
       overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
       position: relative;
     }
-    .heart-particle {
-      width: 20px;
-      height: 20px;
-      background: #ff6b81;
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      padding: 100px;
+    }
+
+    .left-text {
+      font-size: 24px;
+      color: #555;
+    }
+
+    .girl-button {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: rotate(-45deg);
-      border-radius: 30%;
-      animation: floatHeart linear infinite;
-    }
-    .heart-particle::before,
-    .heart-particle::after {
-      content: "";
-      width: 20px;
-      height: 20px;
-      background: #ff6b81;
-      position: absolute;
-      border-radius: 50%;
-    }
-    .heart-particle::before {
-      top: -10px;
-      left: 0;
-    }
-    .heart-particle::after {
-      left: 10px;
-      top: 0;
-    }
-    @keyframes floatHeart {
-      0% {
-        transform: translateY(0) scale(1) rotate(-45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-800px) scale(1.5) rotate(-45deg);
-        opacity: 0;
-      }
-    }
-    .btn {
-      background-color: #ff69b4;
+      top: 180px;
+      right: 100px;
+      padding: 14px 26px;
+      font-size: 18px;
+      background: #ff69b4;
       color: white;
       border: none;
-      padding: 12px 25px;
-      font-size: 18px;
-      margin: 10px;
       border-radius: 16px;
-      cursor: pointer;
-      transition: transform 0.1s;
+      cursor: default;
+      transition: background 0.3s;
+      z-index: 1;
     }
-    .btn:active {
-      transform: scale(0.97);
-    }
-    h1 {
-      font-size: 28px;
-      color: #d63384;
-      margin-bottom: 20px;
-    }
-    #celebration {
-      display: none;
+
+    .mouse {
+      width: 24px;
+      height: 36px;
+      border: 2px solid #333;
+      border-radius: 3px;
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
+      top: 400px;
+      left: 50px;
+      z-index: 10;
+      transform: rotate(-30deg);
+      background: white;
     }
-    .confetti {
+
+    .mouse::after {
+      content: "";
       position: absolute;
-      width: 10px;
-      height: 10px;
-      background: hsl(calc(360 * var(--hue)), 80%, 60%);
-      animation: confettiFall linear forwards;
+      top: 6px;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      background: #333;
+      border-radius: 50%;
     }
-    @keyframes confettiFall {
-      0% {
-        transform: translateY(0) rotate(0);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-      }
+
+    @keyframes moveMouse {
+      0% { top: 400px; left: 50px; }
+      100% { top: 190px; left: calc(100% - 120px); }
     }
-    #dancer {
-      position: absolute;
-      bottom: -100px;
-      font-size: 60px;
-      animation: danceUp 1s ease-out forwards;
-    }
-    @keyframes danceUp {
-      0% {
-        bottom: -100px;
-        opacity: 0;
-      }
-      50% {
-        bottom: 60px;
-        opacity: 1;
-      }
-      100% {
-        bottom: 30px;
-      }
-    }
-    audio {
-      display: none;
+
+    @keyframes clickEffect {
+      0% { transform: scale(1); }
+      50% { transform: scale(0.9); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
 
-<!-- Arka planda müzik -->
-<audio autoplay loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
-</audio>
+  <div class="container">
+    <div class="left-text">DÜNYADAKİ KIZ MİKTARI:</div>
+  </div>
 
-<!-- Kalpler -->
-<script>
-  for (let i = 0; i < 40; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart-particle";
-    heart.style.left = `${Math.random() * 100}%`;
-    heart.style.top = `${Math.random() * 100 + 100}%`;
-    heart.style.animationDuration = `${Math.random() * 5 + 3}s`;
-    heart.style.opacity = Math.random();
-    document.body.appendChild(heart);
-  }
-</script>
+  <button class="girl-button" id="girlBtn">1 KIZ</button>
 
-<!-- Giriş -->
-<div id="prompt">
-  <h1>Özür dilerim, beni affeder misin? 💔</h1>
-  <button class="btn" onclick="showCelebration()">Evet</button>
-  <button class="btn" onclick="sayNo()">Hayır</button>
-</div>
+  <div class="mouse" id="fakeMouse"></div>
 
-<!-- Kutlama Alanı -->
-<div id="celebration">
-  <div id="dancer">🕺</div>
-</div>
+  <script>
+    const mouse = document.getElementById("fakeMouse");
+    const button = document.getElementById("girlBtn");
 
-<!-- JS -->
-<script>
-  function sayNo() {
-    alert(":( Olsun, Emir seni yine de çok seviyor ve hep bekleyecek...");
-  }
+    // 1 saniye sonra mouse hareketi başlasın
+    setTimeout(() => {
+      mouse.style.animation = "moveMouse 2s ease forwards";
 
-  function showCelebration() {
-    document.getElementById('prompt').style.display = 'none';
-    const container = document.getElementById('celebration');
-    container.style.display = 'block';
-
-    // Konfetiler
-    for (let i = 0; i < 100; i++) {
-      const confetti = document.createElement("div");
-      confetti.className = "confetti";
-      confetti.style.left = `${Math.random() * 100}%`;
-      confetti.style.top = `-10px`;
-      confetti.style.setProperty('--hue', Math.random());
-      confetti.style.animationDuration = `${Math.random() * 2 + 2}s`;
-      container.appendChild(confetti);
-    }
-  }
-</script>
+      // 2.1 saniyede "tıklama" yap
+      setTimeout(() => {
+        button.innerText = "KARICIM 💍";
+        button.style.animation = "clickEffect 0.4s ease";
+      }, 2100);
+    }, 1000);
+  </script>
 
 </body>
 </html>
