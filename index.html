@@ -2,196 +2,186 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8">
-  <title>Wenshert <3 Wimshert</title>
+  <title>Tek Kız</title>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
   <style>
-    * {
+    body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Fredoka One', cursive;
-    }
-    body {
-      background: linear-gradient(135deg, #f8f9fa, #e6d6d1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-      color: #333;
+      background: #fff0f5;
+      font-family: 'Fredoka One', sans-serif;
       overflow: hidden;
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
     }
-    .heart {
-      width: 150px;
-      height: 150px;
-      background: #ff6b81;
-      position: absolute;
-      transform: rotate(-45deg);
+
+    .container {
+      text-align: center;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: space-between;
+      width: 80%;
+      padding: 0 30px;
+      align-items: center;
+    }
+
+    .left-text {
+      font-size: 32px;
+      color: #555;
+      flex: 1;
+      text-align: left;
+    }
+
+    .right-button {
+      font-size: 24px;
+      background: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 16px;
+      padding: 14px 26px;
       cursor: pointer;
-      border-radius: 30px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-      z-index: 1;
+      transition: transform 0.2s ease-in-out;
+      flex: 1;
+      text-align: right;
+      aspect-ratio: 1.5; /* Butonun aspect oranı 1.5:1 */
+      width: auto;
     }
-    .heart:hover {
-      transform: scale(1.05) rotate(-45deg);
+
+    .right-button:active {
+      transform: scale(0.95);
     }
+
+    .mouse {
+      width: 24px;
+      height: 36px;
+      border: 2px solid #333;
+      border-radius: 3px;
+      position: absolute;
+      top: 400px;
+      left: 50px;
+      z-index: 10;
+      transform: rotate(-30deg);
+      background: white;
+      pointer-events: none;
+    }
+
+    .mouse::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 6px;
+      height: 6px;
+      background: #333;
+      border-radius: 50%;
+    }
+
+    @keyframes moveMouse {
+      0% { top: 400px; left: 50px; }
+      100% { top: 200px; left: calc(100% - 120px); }
+    }
+
+    .heart {
+      width: 20px;
+      height: 20px;
+      background: pink;
+      position: absolute;
+      transform: rotate(45deg);
+      animation: floatUp 4s linear infinite;
+      opacity: 0.7;
+      border-radius: 4px;
+    }
+
     .heart::before,
     .heart::after {
       content: "";
-      width: 150px;
-      height: 150px;
-      background: #ff6b81;
+      width: 20px;
+      height: 20px;
+      background: pink;
       position: absolute;
       border-radius: 50%;
     }
+
     .heart::before {
-      top: -75px;
+      top: -10px;
       left: 0;
     }
+
     .heart::after {
-      left: 75px;
+      left: -10px;
       top: 0;
     }
-    .btn {
-      position: relative;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 20px;
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.1s;
-      aspect-ratio: 1.5;
-      margin-top: 20px;
-    }
-    .btn:active {
-      transform: scale(0.97);
-    }
-    .btn::after {
-      content: "";
-      position: absolute;
-      background: rgba(255,255,255,0.5);
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-    }
-    .btn:focus:not(:active)::after {
-      animation: none;
-    }
-    @keyframes ripple {
-      to {
-        transform: scale(4);
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-800px) rotate(45deg);
         opacity: 0;
       }
-    }
-    .btn:active::after {
-      width: 100px;
-      height: 100px;
-      top: 50%;
-      left: 50%;
-      margin-top: -50px;
-      margin-left: -50px;
-    }
-    h1 {
-      font-size: 32px;
-      color: #d63384;
-      animation: fadeIn 1.2s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    #background-image {
-      width: 80%;
-      max-width: 600px;
-      border-radius: 15px;
-      margin-top: 20px;
-      opacity: 0.7;
-    }
-    audio {
-      display: none;
-    }
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 40px;
-      flex-direction: column;
-    }
-    .counter {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .btn-container {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="counter">Dünyadaki Kız Miktarı: 4,000,000,000+</div>
-
-  <!-- Kalp tıklama alanı -->
-  <div class="heart" onclick="startMouseMovement()"></div>
-
-  <div class="btn-container">
-    <!-- Buton -->
-    <button class="btn" id="actionBtn" onclick="changeButtonText()">1 KIZ</button>
+  <div class="container">
+    <div class="left-text">DÜNYADAKİ KIZ MİKTARI: 4,093,903,832</div>
+    <button class="right-button" id="girlBtn">1 KIZ</button>
   </div>
-</div>
 
-<script>
-  // Mouse hareketini simüle et
-  let isMoving = false;
+  <div class="mouse" id="fakeMouse"></div>
 
-  function startMouseMovement() {
-    isMoving = true;
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let targetX = document.querySelector('.btn').getBoundingClientRect().left + document.querySelector('.btn').offsetWidth / 2;
-    let targetY = document.querySelector('.btn').getBoundingClientRect().top + document.querySelector('.btn').offsetHeight / 2;
+  <script>
+    const mouse = document.getElementById("fakeMouse");
+    const button = document.getElementById("girlBtn");
 
-    let mouseElement = document.createElement('div');
-    mouseElement.style.position = 'absolute';
-    mouseElement.style.backgroundColor = '#ff69b4';
-    mouseElement.style.borderRadius = '50%';
-    mouseElement.style.width = '15px';
-    mouseElement.style.height = '15px';
-    mouseElement.style.zIndex = '1000';
-    document.body.appendChild(mouseElement);
+    // Mouse'u hareket ettir
+    function moveMouse() {
+      mouse.style.transition = "left 2s ease";
+      mouse.style.top = "200px";
+      mouse.style.left = `${window.innerWidth - 120}px`; // Butonun sağ kısmına yerleştiriyoruz
+    }
 
-    let mouseMoveTween = setInterval(() => {
-      if (Math.abs(mouseX - targetX) < 5 && Math.abs(mouseY - targetY) < 5) {
-        clearInterval(mouseMoveTween);
-      }
-      mouseX += (targetX - mouseX) * 0.1;
-      mouseY += (targetY - mouseY) * 0.1;
-
-      mouseElement.style.left = mouseX + 'px';
-      mouseElement.style.top = mouseY + 'px';
-    }, 16);
-  }
-
-  function changeButtonText() {
-    let btn = document.getElementById('actionBtn');
-    btn.innerText = 'KARICIM';
-    setTimeout(() => {
-      // Butonun tıklama animasyonu
-      btn.style.transform = 'scale(1.1)';
+    // Butonun tıklama animasyonu
+    function clickButton() {
+      button.style.transition = "transform 0.3s ease";
+      button.style.transform = "scale(0.95)";
       setTimeout(() => {
-        btn.style.transform = 'scale(1)';
-      }, 200);
-    }, 100);
-  }
-</script>
+        button.style.transform = "scale(1)";
+      }, 300);
+    }
+
+    // Sahte mouse hareketini başlat
+    setTimeout(() => {
+      moveMouse();
+      setTimeout(clickButton, 2000); // Mouse hareketi bittikten 2 saniye sonra tıklama animasyonu
+    }, 1000);
+
+    // Tıklama olayı
+    button.addEventListener("click", () => {
+      button.innerText = "KARICIM 💍";
+    });
+
+    // Kalp partikülleri sürekli
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.style.left = Math.random() * window.innerWidth + "px";
+      heart.style.bottom = "-20px";
+      heart.style.background = Math.random() > 0.5 ? "#ff69b4" : "#ff85a2";
+      heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+
+    setInterval(createHeart, 200);
+  </script>
 
 </body>
 </html>
